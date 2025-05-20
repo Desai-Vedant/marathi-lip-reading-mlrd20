@@ -24,9 +24,9 @@ marathi-lip-reading-mlrd20/
 ├── notebooks/
 │   └── mlrd20_demo.ipynb        # Sample notebook for loading and using the dataset
 ├── scripts/
-│   ├── preprocess.py            # OpenCV-based preprocessing (e.g., mouth ROI)
 │   └── augment.py               # Code for video augmentation
 ├── LICENSE                      # MIT License (for code)
+├── dataset_image.png            # Previw Image
 ├── LICENSE-CC-BY-SA-4.0         # CC BY-SA 4.0 (for dataset)
 └── README.md
 ```
@@ -35,13 +35,36 @@ marathi-lip-reading-mlrd20/
 
 ## 🧾 Annotations
 
-The `annotation.csv` file contains mappings of video filenames to their corresponding words:
+All videos in the dataset are annotated in a CSV file named `annotations.csv`, located at the root of the dataset. Each row in the CSV corresponds to a single video clip and includes the following fields:
 
-| Filename             | Word ID | Word (Marathi)   |
-|----------------------|---------|------------------|
-| s1_w1_lighten.mp4    | w1      | छत्रपती          |
-| s2_w2_darken.mp4     | w2      | शिवाजी           |
-| ...                  | ...     | ...              |
+| Column Name    | Description                                                   |
+|----------------|---------------------------------------------------------------|
+| `filename`     | Name of the video file (e.g., `s1_w1_base.mp4`)               |
+| `speaker_id`   | Speaker identifier (e.g., `s1` for Speaker 1)                 |
+| `word_id`      | Word identifier (e.g., `w1`, `w2`, ..., `w20`)                |
+| `word_text`    | Marathi word spoken in the video (e.g., `शिवाजी`)             |
+| `augmentation` | Type of augmentation applied (`base`, `lighten`, or `darken`) |
+| `frames`       | Number of frames in the video (fixed at 50)                   |
+| `fps`          | Frames per second (fixed at 25.00)                            |
+| `duration`     | Duration of the video in seconds (fixed at 2.000)             |
+
+**Example Entries**
+
+```csv
+filename,speaker_id,word_id,word_text,augmentation,frames,fps,duration
+s1_w1_base.mp4,s1,w1,छत्रपती,base,50,25.00,2.000
+s1_w2_base.mp4,s1,w2,शिवाजी,base,50,25.00,2.000
+s1_w3_base.mp4,s1,w3,महाराज,base,50,25.00,2.000
+s1_w4_base.mp4,s1,w4,हे,base,50,25.00,2.000
+```
+
+Each speaker (`s1` to `s38`) recorded all 20 words (`w1` to `w20`) in three versions:
+
+- `base` (original)
+- `lighten` (increased brightness)
+- `darken` (decreased brightness)
+
+**Total Entries**: 2,280 rows in `annotations.csv`
 
 ---
 
@@ -64,7 +87,7 @@ w10: आणि           w20: केले
 
 ## 🚀 How to Use
 
-1. Download the full dataset from [Kaggle](https://www.kaggle.com/your-dataset-link).
+1. Download the full dataset from [Kaggle](https://www.kaggle.com/datasets/desaivedantanil/mlrd-20).
 2. Clone this repository:
    ```bash
    git clone https://github.com/yourusername/marathi-lip-reading-mlrd20.git
@@ -74,20 +97,14 @@ w10: आणि           w20: केले
 
 ---
 
-## 🧠 Model
-
-We tested this dataset using a 3DCNN + BLSTM architecture for lip reading. The training and evaluation code will be added in the future.
-
----
-
 ## 👨‍💻 Authors
 
 This dataset and repository were created by:
 
-- **Vedant Desai** — Processing using OpenCV and structuring  
-- **Muaaj Nesarikar** — Processing using OpenCV and structuring  
-- **Aditya Patil** — Recording and documentation  
-- **Sushant More** — Recording and documentation  
+- **Muaaj Nesarikar**
+- **Aditya Patil** 
+- **Vedant Desai** 
+- **Sushant More**
 
 ---
 
@@ -107,7 +124,7 @@ To cite this dataset in your research, please use the following BibTeX (example)
   title={MLRD-20: A Marathi Lip Reading Dataset},
   author={Vedant Desai and Muaaj Nesarikar and Aditya Patil and Sushant More},
   year={2025},
-  note={https://www.kaggle.com/your-dataset-link}
+  note={https://www.kaggle.com/datasets/desaivedantanil/mlrd-20}
 }
 ```
 
